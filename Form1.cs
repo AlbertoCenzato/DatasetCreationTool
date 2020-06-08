@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DatasetCreationTool
@@ -18,8 +14,8 @@ namespace DatasetCreationTool
         private List<string> images;
         private Int32 imageIndex = 0;
         private Rectangle selectedRegion = Rectangle.Empty;
-        private readonly string saveTo = @"C:\Users\Alberto\Desktop\output";
-        private int croppedImages = 0;
+        private readonly string saveTo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Desktop/output");
+        private Int32 croppedImages = 0;
 
         public Int32 ImageIndex
         {
@@ -35,6 +31,7 @@ namespace DatasetCreationTool
 
                 if (images.Any())
                 {
+                    statusStrip1.Items[0].Text = $"Image {imageIndex + 1} of {images.Count}";
                     var oldImage = pictureBoxWorkingImage.Image;
                     selectedRegion = Rectangle.Empty;
                     pictureBoxWorkingImage.Image = Image.FromFile(images[imageIndex]);
@@ -148,8 +145,8 @@ namespace DatasetCreationTool
             Graphics g = e.Graphics;
             g.TranslateTransform(offset.X, offset.Y);
             g.ScaleTransform(scale, scale);
-            using (var pen = new Pen(Color.Red, 3))
-                g.DrawRectangle(pen, selectedRegion);
+            using var pen = new Pen(Color.Red, 3);
+            g.DrawRectangle(pen, selectedRegion);
         }
 
         private void CropRegion(Rectangle croppingRegion)
