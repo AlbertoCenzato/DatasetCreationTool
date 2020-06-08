@@ -14,7 +14,7 @@ namespace DatasetCreationTool
         private List<string> images;
         private Int32 imageIndex = 0;
         private Rectangle selectedRegion = Rectangle.Empty;
-        private readonly string saveTo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Desktop/output");
+        private string saveTo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Desktop/output");
         private Int32 croppedImages = 0;
 
         public Int32 ImageIndex
@@ -158,6 +158,14 @@ namespace DatasetCreationTool
             var path = Path.Combine(saveTo, $"{textBoxClass.Text}_{croppedImages++}.jpg");
             bmp.Save(path, ImageFormat.Jpeg);
             bmp.Dispose();
+        }
+
+        private void buttonSaveTo_Click(object sender, EventArgs e)
+        {
+            using var dialog = new FolderBrowserDialog();
+            var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+                saveTo = dialog.SelectedPath;
         }
     }
 }
