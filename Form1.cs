@@ -133,6 +133,8 @@ namespace DatasetCreationTool
         private void textBoxClass_Leave(object sender, EventArgs e)
         {
             datasetHandler.CurrentClass = textBoxClass.Text;
+            if (!textBoxClass.AutoCompleteCustomSource.Contains(datasetHandler.CurrentClass))
+                textBoxClass.AutoCompleteCustomSource.Add(datasetHandler.CurrentClass);
         }
     }
 }

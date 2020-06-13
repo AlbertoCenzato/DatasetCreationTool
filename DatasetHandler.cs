@@ -28,12 +28,12 @@ namespace DatasetCreationTool
             set
             {
                 currentClass = value;
-                if (!croppedImagesPerClass.ContainsKey(currentClass))
-                    croppedImagesPerClass[currentClass] = 0;
+                if (!CroppedImagesPerClass.ContainsKey(currentClass))
+                    CroppedImagesPerClass[currentClass] = 0;
             }
         }
 
-        private Dictionary<string, Int64> croppedImagesPerClass;
+        public Dictionary<string, Int64> CroppedImagesPerClass;
 
         public delegate void InputFilesUpdatedHandler(object sender, InputFilesUpdatedArgs e);
         public delegate void SelectedImageChangedHandler(object sender, EventArgs e);
@@ -43,7 +43,7 @@ namespace DatasetCreationTool
 
         public DatasetHandler()
         {
-            croppedImagesPerClass = new Dictionary<string, Int64>();
+            CroppedImagesPerClass = new Dictionary<string, Int64>();
         }
 
 
@@ -99,7 +99,7 @@ namespace DatasetCreationTool
             using (var graphics = Graphics.FromImage(bmp))
                 graphics.DrawImage(SelectedImage, new Rectangle(0, 0, bmp.Width, bmp.Height), SelectedRegion, GraphicsUnit.Pixel);
 
-            var path = Path.Combine(saveDir, $"{CurrentClass}_{croppedImagesPerClass[CurrentClass]++}.jpg");
+            var path = Path.Combine(saveDir, $"{CurrentClass}_{CroppedImagesPerClass[CurrentClass]++}.jpg");
             bmp.Save(path, ImageFormat.Jpeg);
             bmp.Dispose();
         }

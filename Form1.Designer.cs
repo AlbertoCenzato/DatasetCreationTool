@@ -127,6 +127,8 @@
             // 
             // textBoxClass
             // 
+            this.textBoxClass.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.textBoxClass.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textBoxClass.Location = new System.Drawing.Point(43, 34);
             this.textBoxClass.Name = "textBoxClass";
             this.textBoxClass.Size = new System.Drawing.Size(221, 23);
