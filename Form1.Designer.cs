@@ -130,6 +130,7 @@
             this.textBoxClass.Name = "textBoxClass";
             this.textBoxClass.Size = new System.Drawing.Size(221, 23);
             this.textBoxClass.TabIndex = 3;
+            this.textBoxClass.Leave += new System.EventHandler(this.textBoxClass_Leave);
             // 
             // labelRectHeight
             // 
