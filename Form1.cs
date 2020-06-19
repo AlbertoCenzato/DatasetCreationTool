@@ -16,6 +16,8 @@ namespace DatasetCreationTool
             InitializeComponent();
             this.datasetHandler = datasetHandler;
             this.datasetHandler.SelectedImageChanged += OnSelectedImageChanged;
+            numericUpDownRectHeight.Maximum = 1000;
+            numericUpDownRectWidth.Maximum = 1000;
         }
 
         private void buttonOpenFolder_Click(object sender, EventArgs e)
