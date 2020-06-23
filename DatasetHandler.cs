@@ -67,7 +67,15 @@ namespace DatasetCreationTool
                 {
                     var oldImage = SelectedImage;
                     SelectedRegion = Rectangle.Empty;
-                    SelectedImage = Image.FromFile(ImagesFiles[imageIndex].Item1);
+                    FileNotFoundException e;
+                    try
+                    {
+                        SelectedImage = Image.FromFile(ImagesFiles[imageIndex].Item1);
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        SelectedImage = null;
+                    }
                     oldImage?.Dispose();
                     SelectedImageChanged?.Invoke(this, EventArgs.Empty);
                 }

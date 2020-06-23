@@ -30,6 +30,7 @@
         {
             this.buttonOpenFolder = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxCropMode = new System.Windows.Forms.CheckBox();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.buttonSaveTo = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -72,6 +73,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxCropMode);
             this.splitContainer1.Panel1.Controls.Add(this.buttonOpenFile);
             this.splitContainer1.Panel1.Controls.Add(this.buttonSaveTo);
             this.splitContainer1.Panel1.Controls.Add(this.statusStrip1);
@@ -91,6 +93,16 @@
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             this.splitContainer1.Text = "splitContainer1";
+            // 
+            // checkBoxCropMode
+            // 
+            this.checkBoxCropMode.AutoSize = true;
+            this.checkBoxCropMode.Location = new System.Drawing.Point(3, 165);
+            this.checkBoxCropMode.Name = "checkBoxCropMode";
+            this.checkBoxCropMode.Size = new System.Drawing.Size(106, 24);
+            this.checkBoxCropMode.TabIndex = 6;
+            this.checkBoxCropMode.Text = "Crop Mode";
+            this.checkBoxCropMode.UseVisualStyleBackColor = true;
             // 
             // buttonOpenFile
             // 
@@ -243,6 +255,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Button buttonSaveTo;
         private System.Windows.Forms.Button buttonOpenFile;
+        private System.Windows.Forms.CheckBox checkBoxCropMode;
     }
 }
 

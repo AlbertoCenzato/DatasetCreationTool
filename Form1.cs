@@ -60,10 +60,17 @@ namespace DatasetCreationTool
                 case (char)Keys.E:
                     if (datasetHandler.SelectedRegion != Rectangle.Empty)
                     {
-                        var savePath = datasetHandler.SaveSelectedPatch(saveTo);
-                        annotationsStream.WriteLine(savePath);
-                        annotationsStream.Flush();
-                        datasetHandler.SelectedRegion = Rectangle.Empty;  // TODO: use a property to refresh each time selectedRegion changes
+                        if (checkBoxCropMode.Checked)
+                        {
+                            var savePath = datasetHandler.SaveSelectedPatch(saveTo);
+                            annotationsStream.WriteLine(savePath);
+                            annotationsStream.Flush();
+                            datasetHandler.SelectedRegion = Rectangle.Empty;  // TODO: use a property to refresh each time selectedRegion changes
+                        }
+                        else
+                        {
+                            datasetHandler.ImageRectangles.Add(datasetHandler.SelectedRegion);
+                        }
                         pictureBoxWorkingImage.Refresh();
                     }
                     e.Handled = true;
@@ -166,6 +173,18 @@ namespace DatasetCreationTool
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!checkBoxCropMode.Checked)
+            {
+                foreach (var (imagePath, rectList) in datasetHandler.ImagesFiles)
+                {
+                    annotationsStream.Write(imagePath);
+                    annotationsStream.Write($" {rectList.Count}");
+                    foreach (var r in rectList)
+                        annotationsStream.Write($" {r.X} {r.Y} {r.Width} {r.Height}");
+                    annotationsStream.WriteLine();
+                }
+            }
+
             annotationsStream?.Dispose();
         }
 
@@ -177,7 +196,7 @@ namespace DatasetCreationTool
             var point = FormCoordinatesToImageCoordinates(e.Location);
             var size = new Size(point.X - firstPoint.X, point.Y - firstPoint.Y);
             datasetHandler.SelectedRegion = new Rectangle(firstPoint, size);
-            pictureBoxWorkingImage.Invalidate();
+            pictureBoxWorkingImage.Invalidate();  // TODO(cenz): invalidate only rectangle area
         }
     }
 }
