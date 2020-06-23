@@ -11,6 +11,7 @@ namespace DatasetCreationTool
         private string saveTo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Desktop/output");
         private static readonly string ANNOTATIONS_FILE_NAME = "samples.txt";
         private StreamWriter annotationsStream;
+        private Point firstPoint;
 
         public Form1(DatasetHandler datasetHandler)
         {
@@ -29,12 +30,12 @@ namespace DatasetCreationTool
                 datasetHandler.OpenDirectory(dialog.SelectedPath);
         }
 
-        private void buttonOpenFile_Click(object sender, EventArgs e)
+        private async void buttonOpenFile_Click(object sender, EventArgs e)
         {
             using var dialog = new OpenFileDialog();
             var result = dialog.ShowDialog();
             if (result == DialogResult.OK)
-                datasetHandler.OpenAnnotationsFile(dialog.FileName);
+                await datasetHandler.OpenAnnotationsFile(dialog.FileName);
         }
 
         private void OnSelectedImageChanged(object sender, EventArgs e)
@@ -83,12 +84,19 @@ namespace DatasetCreationTool
             if (pictureBoxWorkingImage.Image == null)
                 return;
 
-            var size = new Size((int)numericUpDownRectWidth.Value, (int)numericUpDownRectHeight.Value);
-            var rectTopLeftCorner = FormCoordinatesToImageCoordinates(e.Location);
-            rectTopLeftCorner.Offset((int)(-size.Width / 2), (int)(-size.Height / 2));
+            if (firstPoint == Point.Empty)
+            {
+                firstPoint = FormCoordinatesToImageCoordinates(e.Location);
+            }
+            else  // TODO(cenz): manage cases when first point is not the top-left corner
+            {
+                var rectBottomRightCorner = FormCoordinatesToImageCoordinates(e.Location);
+                var size = new Size(rectBottomRightCorner.X - firstPoint.X, rectBottomRightCorner.Y - firstPoint.Y);
+                datasetHandler.SelectedRegion = new Rectangle(firstPoint, size);
 
-            datasetHandler.SelectedRegion = new Rectangle(rectTopLeftCorner, size);
-            
+                firstPoint = Point.Empty;
+            }
+
             pictureBoxWorkingImage.Refresh();
         }
 
@@ -137,8 +145,6 @@ namespace DatasetCreationTool
                 g.DrawRectangle(pen, rect);
         }
 
-        
-
         private void buttonSaveTo_Click(object sender, EventArgs e)
         {
             using var dialog = new FolderBrowserDialog();
@@ -161,6 +167,17 @@ namespace DatasetCreationTool
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             annotationsStream?.Dispose();
+        }
+
+        private void pictureBoxWorkingImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (firstPoint == Point.Empty)
+                return;
+
+            var point = FormCoordinatesToImageCoordinates(e.Location);
+            var size = new Size(point.X - firstPoint.X, point.Y - firstPoint.Y);
+            datasetHandler.SelectedRegion = new Rectangle(firstPoint, size);
+            pictureBoxWorkingImage.Invalidate();
         }
     }
 }

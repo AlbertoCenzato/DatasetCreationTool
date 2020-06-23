@@ -201,6 +201,7 @@
             this.pictureBoxWorkingImage.TabStop = false;
             this.pictureBoxWorkingImage.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxWorkingImage_Paint);
             this.pictureBoxWorkingImage.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxWorkingImage_MouseClick);
+            this.pictureBoxWorkingImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxWorkingImage_MouseMove);
             // 
             // Form1
             // 
