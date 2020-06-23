@@ -29,6 +29,14 @@ namespace DatasetCreationTool
                 datasetHandler.OpenDirectory(dialog.SelectedPath);
         }
 
+        private void buttonOpenFile_Click(object sender, EventArgs e)
+        {
+            using var dialog = new OpenFileDialog();
+            var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+                datasetHandler.OpenAnnotationsFile(dialog.FileName);
+        }
+
         private void OnSelectedImageChanged(object sender, EventArgs e)
         {
             pictureBoxWorkingImage.Image = datasetHandler.SelectedImage;

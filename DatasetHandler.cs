@@ -5,6 +5,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace DatasetCreationTool
 {
@@ -80,6 +83,50 @@ namespace DatasetCreationTool
             ImagesFiles = Directory.EnumerateFiles(path, "*")
                                   .Where(f => IsSupportedFormat(new FileInfo(f).Extension))
                                   .ToList();
+            bool result = ImagesFiles.Any();
+            if (result)
+                ImageIndex = 0;
+            return result;
+        }
+
+        public async Task<bool> OpenAnnotationsFile(string path)
+        {
+            if (!File.Exists(path))
+                return false;
+
+            static (string, List<Rectangle>) ParseLine(string text)
+            {
+                var index = Regex.Match(text, @"\.[a-z]{3} [0-9]").Index;
+                var path = text.Substring(0, index + 4);
+
+                var annotationData = text.Substring(index + 4)
+                                         .Split(" ")
+                                         .Where(str => str.Length != 0)
+                                         .Select(str => Int32.Parse(str))
+                                         .ToArray();
+
+                if ((annotationData.Length - 1) / 4 != annotationData[0])
+                    throw new Exception("Invalid format!");
+
+                var rectangles = new List<Rectangle>();
+                for (int i = 0; i < annotationData[0]; i++)
+                {
+                    int x      = annotationData[i * 4 + 1];
+                    int y      = annotationData[i * 4 + 2];
+                    int width  = annotationData[i * 4 + 3];
+                    int height = annotationData[i * 4 + 4];
+                    var rect = new Rectangle(x, y, width, height);
+                    rectangles.Add(rect);
+                }
+
+                return (path, rectangles);
+            }
+
+            var lines = await File.ReadAllLinesAsync(path);
+            var tmp = lines.Select(ParseLine)
+                           .Where(tuple => IsSupportedFormat(new FileInfo(tuple.Item1).Extension));
+            ImagesFiles = tmp.Select(tuple => tuple.Item1)
+                             .ToList();
             bool result = ImagesFiles.Any();
             if (result)
                 ImageIndex = 0;
