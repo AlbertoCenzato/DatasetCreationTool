@@ -93,11 +93,11 @@
             // buttonSaveTo
             // 
             this.buttonSaveTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSaveTo.Location = new System.Drawing.Point(177, 536);
+            this.buttonSaveTo.Location = new System.Drawing.Point(177, 539);
             this.buttonSaveTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonSaveTo.Name = "buttonSaveTo";
             this.buttonSaveTo.Size = new System.Drawing.Size(86, 31);
-            this.buttonSaveTo.TabIndex = 6;
+            this.buttonSaveTo.TabIndex = 4;
             this.buttonSaveTo.Text = "Save To...";
             this.buttonSaveTo.UseVisualStyleBackColor = true;
             this.buttonSaveTo.Click += new System.EventHandler(this.buttonSaveTo_Click);
@@ -130,13 +130,14 @@
             // 
             // textBoxClass
             // 
+            this.textBoxClass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxClass.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxClass.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxClass.Location = new System.Drawing.Point(49, 45);
+            this.textBoxClass.Location = new System.Drawing.Point(51, 49);
             this.textBoxClass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxClass.Name = "textBoxClass";
-            this.textBoxClass.Size = new System.Drawing.Size(252, 27);
-            this.textBoxClass.TabIndex = 3;
+            this.textBoxClass.Size = new System.Drawing.Size(212, 27);
+            this.textBoxClass.TabIndex = 1;
             this.textBoxClass.Leave += new System.EventHandler(this.textBoxClass_Leave);
             // 
             // labelRectHeight
@@ -150,11 +151,12 @@
             // 
             // numericUpDownRectHeight
             // 
-            this.numericUpDownRectHeight.Location = new System.Drawing.Point(201, 123);
+            this.numericUpDownRectHeight.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.numericUpDownRectHeight.Location = new System.Drawing.Point(162, 126);
             this.numericUpDownRectHeight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numericUpDownRectHeight.Name = "numericUpDownRectHeight";
             this.numericUpDownRectHeight.Size = new System.Drawing.Size(101, 27);
-            this.numericUpDownRectHeight.TabIndex = 1;
+            this.numericUpDownRectHeight.TabIndex = 3;
             // 
             // labelRectWidth
             // 
@@ -167,11 +169,12 @@
             // 
             // numericUpDownRectWidth
             // 
-            this.numericUpDownRectWidth.Location = new System.Drawing.Point(201, 84);
+            this.numericUpDownRectWidth.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.numericUpDownRectWidth.Location = new System.Drawing.Point(162, 88);
             this.numericUpDownRectWidth.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numericUpDownRectWidth.Name = "numericUpDownRectWidth";
             this.numericUpDownRectWidth.Size = new System.Drawing.Size(101, 27);
-            this.numericUpDownRectWidth.TabIndex = 1;
+            this.numericUpDownRectWidth.TabIndex = 2;
             // 
             // pictureBoxWorkingImage
             // 
