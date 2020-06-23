@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
+using System.Xml;
 
 namespace DatasetCreationTool
 {
@@ -66,14 +67,19 @@ namespace DatasetCreationTool
                 {
                     var oldImage = SelectedImage;
                     SelectedRegion = Rectangle.Empty;
-                    SelectedImage = Image.FromFile(ImagesFiles[imageIndex]);
+                    SelectedImage = Image.FromFile(ImagesFiles[imageIndex].Item1);
                     oldImage?.Dispose();
                     SelectedImageChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
 
-        public List<string> ImagesFiles { get; private set; }
+        public List<Rectangle> ImageRectangles
+        {
+            get => ImagesFiles[ImageIndex].Item2;
+        }
+
+        public List<(string, List<Rectangle>)> ImagesFiles { get; private set; }
 
         public bool OpenDirectory(string path)
         {
@@ -82,6 +88,7 @@ namespace DatasetCreationTool
 
             ImagesFiles = Directory.EnumerateFiles(path, "*")
                                   .Where(f => IsSupportedFormat(new FileInfo(f).Extension))
+                                  .Select(str => (str, new List<Rectangle>()))
                                   .ToList();
             bool result = ImagesFiles.Any();
             if (result)
@@ -123,10 +130,9 @@ namespace DatasetCreationTool
             }
 
             var lines = await File.ReadAllLinesAsync(path);
-            var tmp = lines.Select(ParseLine)
-                           .Where(tuple => IsSupportedFormat(new FileInfo(tuple.Item1).Extension));
-            ImagesFiles = tmp.Select(tuple => tuple.Item1)
-                             .ToList();
+            ImagesFiles = lines.Select(ParseLine)
+                           .Where(tuple => IsSupportedFormat(new FileInfo(tuple.Item1).Extension))
+                           .ToList();
             bool result = ImagesFiles.Any();
             if (result)
                 ImageIndex = 0;

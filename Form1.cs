@@ -121,7 +121,7 @@ namespace DatasetCreationTool
 
         private void pictureBoxWorkingImage_Paint(object sender, PaintEventArgs e)
         {
-            if (datasetHandler.SelectedRegion == Rectangle.Empty || pictureBoxWorkingImage.Image == null)
+            if (pictureBoxWorkingImage.Image == null)
                 return;
 
             (float scale, Point offset) = GetImageTransform();
@@ -130,7 +130,11 @@ namespace DatasetCreationTool
             g.TranslateTransform(offset.X, offset.Y);
             g.ScaleTransform(scale, scale);
             using var pen = new Pen(Color.Red, 3);
-            g.DrawRectangle(pen, datasetHandler.SelectedRegion);
+            if (datasetHandler.SelectedRegion != null)
+                g.DrawRectangle(pen, datasetHandler.SelectedRegion);
+            pen.Color = Color.Green;
+            foreach (var rect in datasetHandler.ImageRectangles)
+                g.DrawRectangle(pen, rect);
         }
 
         
