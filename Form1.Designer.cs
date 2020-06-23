@@ -52,9 +52,10 @@
             // 
             // buttonOpenFolder
             // 
-            this.buttonOpenFolder.Location = new System.Drawing.Point(3, 3);
+            this.buttonOpenFolder.Location = new System.Drawing.Point(3, 4);
+            this.buttonOpenFolder.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonOpenFolder.Name = "buttonOpenFolder";
-            this.buttonOpenFolder.Size = new System.Drawing.Size(98, 23);
+            this.buttonOpenFolder.Size = new System.Drawing.Size(112, 31);
             this.buttonOpenFolder.TabIndex = 0;
             this.buttonOpenFolder.Text = "Open Folder";
             this.buttonOpenFolder.UseVisualStyleBackColor = true;
@@ -65,6 +66,7 @@
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -82,17 +84,19 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pictureBoxWorkingImage);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 450);
+            this.splitContainer1.Size = new System.Drawing.Size(914, 600);
             this.splitContainer1.SplitterDistance = 266;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             this.splitContainer1.Text = "splitContainer1";
             // 
             // buttonSaveTo
             // 
             this.buttonSaveTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSaveTo.Location = new System.Drawing.Point(188, 402);
+            this.buttonSaveTo.Location = new System.Drawing.Point(177, 536);
+            this.buttonSaveTo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonSaveTo.Name = "buttonSaveTo";
-            this.buttonSaveTo.Size = new System.Drawing.Size(75, 23);
+            this.buttonSaveTo.Size = new System.Drawing.Size(86, 31);
             this.buttonSaveTo.TabIndex = 6;
             this.buttonSaveTo.Text = "Save To...";
             this.buttonSaveTo.UseVisualStyleBackColor = true;
@@ -103,25 +107,24 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 574);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(266, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(266, 26);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = " ";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(192, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(242, 20);
             this.toolStripStatusLabel1.Text = "Click \"Open Folder\" to load images";
             // 
             // labelClass
             // 
             this.labelClass.AutoSize = true;
-            this.labelClass.Location = new System.Drawing.Point(3, 42);
+            this.labelClass.Location = new System.Drawing.Point(3, 56);
             this.labelClass.Name = "labelClass";
-            this.labelClass.Size = new System.Drawing.Size(34, 15);
+            this.labelClass.Size = new System.Drawing.Size(42, 20);
             this.labelClass.TabIndex = 4;
             this.labelClass.Text = "Class";
             // 
@@ -129,50 +132,54 @@
             // 
             this.textBoxClass.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxClass.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxClass.Location = new System.Drawing.Point(43, 34);
+            this.textBoxClass.Location = new System.Drawing.Point(49, 45);
+            this.textBoxClass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxClass.Name = "textBoxClass";
-            this.textBoxClass.Size = new System.Drawing.Size(221, 23);
+            this.textBoxClass.Size = new System.Drawing.Size(252, 27);
             this.textBoxClass.TabIndex = 3;
             this.textBoxClass.Leave += new System.EventHandler(this.textBoxClass_Leave);
             // 
             // labelRectHeight
             // 
             this.labelRectHeight.AutoSize = true;
-            this.labelRectHeight.Location = new System.Drawing.Point(3, 100);
+            this.labelRectHeight.Location = new System.Drawing.Point(3, 133);
             this.labelRectHeight.Name = "labelRectHeight";
-            this.labelRectHeight.Size = new System.Drawing.Size(98, 15);
+            this.labelRectHeight.Size = new System.Drawing.Size(124, 20);
             this.labelRectHeight.TabIndex = 2;
             this.labelRectHeight.Text = "Rectangle Height";
             // 
             // numericUpDownRectHeight
             // 
-            this.numericUpDownRectHeight.Location = new System.Drawing.Point(176, 92);
+            this.numericUpDownRectHeight.Location = new System.Drawing.Point(201, 123);
+            this.numericUpDownRectHeight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numericUpDownRectHeight.Name = "numericUpDownRectHeight";
-            this.numericUpDownRectHeight.Size = new System.Drawing.Size(88, 23);
+            this.numericUpDownRectHeight.Size = new System.Drawing.Size(101, 27);
             this.numericUpDownRectHeight.TabIndex = 1;
             // 
             // labelRectWidth
             // 
             this.labelRectWidth.AutoSize = true;
-            this.labelRectWidth.Location = new System.Drawing.Point(3, 71);
+            this.labelRectWidth.Location = new System.Drawing.Point(3, 95);
             this.labelRectWidth.Name = "labelRectWidth";
-            this.labelRectWidth.Size = new System.Drawing.Size(94, 15);
+            this.labelRectWidth.Size = new System.Drawing.Size(119, 20);
             this.labelRectWidth.TabIndex = 2;
             this.labelRectWidth.Text = "Rectangle Width";
             // 
             // numericUpDownRectWidth
             // 
-            this.numericUpDownRectWidth.Location = new System.Drawing.Point(176, 63);
+            this.numericUpDownRectWidth.Location = new System.Drawing.Point(201, 84);
+            this.numericUpDownRectWidth.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numericUpDownRectWidth.Name = "numericUpDownRectWidth";
-            this.numericUpDownRectWidth.Size = new System.Drawing.Size(88, 23);
+            this.numericUpDownRectWidth.Size = new System.Drawing.Size(101, 27);
             this.numericUpDownRectWidth.TabIndex = 1;
             // 
             // pictureBoxWorkingImage
             // 
             this.pictureBoxWorkingImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxWorkingImage.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxWorkingImage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBoxWorkingImage.Name = "pictureBoxWorkingImage";
-            this.pictureBoxWorkingImage.Size = new System.Drawing.Size(530, 450);
+            this.pictureBoxWorkingImage.Size = new System.Drawing.Size(643, 600);
             this.pictureBoxWorkingImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxWorkingImage.TabIndex = 0;
             this.pictureBoxWorkingImage.TabStop = false;
@@ -181,13 +188,15 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(914, 600);
             this.Controls.Add(this.splitContainer1);
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Dataset Creation Tool";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

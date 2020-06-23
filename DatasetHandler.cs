@@ -93,15 +93,15 @@ namespace DatasetCreationTool
                    extension == ".png" ;
         }
 
-        public void SaveSelectedPatch(string saveDir)
+        public string SaveSelectedPatch(string saveDir)
         {
-            var bmp = new Bitmap(SelectedRegion.Width, SelectedRegion.Height);
+            using var bmp = new Bitmap(SelectedRegion.Width, SelectedRegion.Height);
             using (var graphics = Graphics.FromImage(bmp))
                 graphics.DrawImage(SelectedImage, new Rectangle(0, 0, bmp.Width, bmp.Height), SelectedRegion, GraphicsUnit.Pixel);
 
             var path = Path.Combine(saveDir, $"{CurrentClass}_{CroppedImagesPerClass[CurrentClass]++}.jpg");
             bmp.Save(path, ImageFormat.Jpeg);
-            bmp.Dispose();
+            return path;
         }
 
     }

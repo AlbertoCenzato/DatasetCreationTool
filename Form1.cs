@@ -9,7 +9,8 @@ namespace DatasetCreationTool
     {
         private DatasetHandler datasetHandler;
         private string saveTo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Desktop/output");
-                
+        private static readonly string ANNOTATIONS_FILE_NAME = "samples.txt";
+        private StreamWriter annotationsStream;
 
         public Form1(DatasetHandler datasetHandler)
         {
@@ -50,7 +51,9 @@ namespace DatasetCreationTool
                 case (char)Keys.E:
                     if (datasetHandler.SelectedRegion != Rectangle.Empty)
                     {
-                        datasetHandler.SaveSelectedPatch(saveTo);
+                        var savePath = datasetHandler.SaveSelectedPatch(saveTo);
+                        annotationsStream.WriteLine(savePath);
+                        annotationsStream.Flush();
                         datasetHandler.SelectedRegion = Rectangle.Empty;  // TODO: use a property to refresh each time selectedRegion changes
                         pictureBoxWorkingImage.Refresh();
                     }
@@ -129,7 +132,11 @@ namespace DatasetCreationTool
             using var dialog = new FolderBrowserDialog();
             var result = dialog.ShowDialog();
             if (result == DialogResult.OK)
+            {
                 saveTo = dialog.SelectedPath;
+                annotationsStream = File.AppendText(Path.Combine(saveTo, ANNOTATIONS_FILE_NAME));
+            }
+
         }
 
         private void textBoxClass_Leave(object sender, EventArgs e)
@@ -137,6 +144,11 @@ namespace DatasetCreationTool
             datasetHandler.CurrentClass = textBoxClass.Text;
             if (!textBoxClass.AutoCompleteCustomSource.Contains(datasetHandler.CurrentClass))
                 textBoxClass.AutoCompleteCustomSource.Add(datasetHandler.CurrentClass);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            annotationsStream?.Dispose();
         }
     }
 }
