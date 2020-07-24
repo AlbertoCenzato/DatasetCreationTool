@@ -162,14 +162,31 @@ namespace DatasetCreationTool
 
         private void buttonSaveTo_Click(object sender, EventArgs e)
         {
+            OpenAnnotationsSaveStream();
+        }
+
+        private void OpenAnnotationsSaveStream()
+        {
             using var dialog = new FolderBrowserDialog();
             var result = dialog.ShowDialog();
             if (result == DialogResult.OK)
             {
                 saveTo = dialog.SelectedPath;
-                annotationsStream = File.AppendText(Path.Combine(saveTo, ANNOTATIONS_FILE_NAME));
-            }
 
+                try
+                {
+                    annotationsStream = File.AppendText(Path.Combine(saveTo, ANNOTATIONS_FILE_NAME));
+                }
+                catch (Exception e) when (e is UnauthorizedAccessException || 
+                                          e is ArgumentException || 
+                                          e is ArgumentNullException || 
+                                          e is PathTooLongException ||
+                                          e is DirectoryNotFoundException ||
+                                          e is NotSupportedException)
+                {
+                    // TODO(cenz): error message
+                }
+            }
         }
 
         private void textBoxClass_Leave(object sender, EventArgs e)
@@ -183,6 +200,9 @@ namespace DatasetCreationTool
         {
             if (!checkBoxCropMode.Checked)
             {
+                if (annotationsStream == null)
+                    OpenAnnotationsSaveStream();
+
                 foreach (var (imagePath, rectList) in datasetHandler.ImagesFiles)
                 {
                     annotationsStream.Write(imagePath);
