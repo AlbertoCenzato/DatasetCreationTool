@@ -64,7 +64,6 @@ namespace DatasetCreationTool
                 {
                     var oldImage = SelectedImage;
                     SelectedRegion = Rectangle.Empty;
-                    FileNotFoundException e;
                     try
                     {
                         SelectedImage = Image.FromFile(ImagesFiles[imageIndex].Item1);
@@ -79,10 +78,7 @@ namespace DatasetCreationTool
             }
         }
 
-        public List<Rectangle> ImageRectangles
-        {
-            get => ImagesFiles[ImageIndex].Item2;
-        }
+        public List<Rectangle> ImageRectangles => ImagesFiles[ImageIndex].Item2;
 
         public List<(string, List<Rectangle>)> ImagesFiles { get; private set; }
 
@@ -92,9 +88,9 @@ namespace DatasetCreationTool
                 return false;
 
             ImagesFiles = Directory.EnumerateFiles(path, "*")
-                                  .Where(f => IsSupportedFormat(new FileInfo(f).Extension))
-                                  .Select(str => (str, new List<Rectangle>()))
-                                  .ToList();
+                                   .Where(f => IsSupportedFormat(new FileInfo(f).Extension))
+                                   .Select(str => (str, new List<Rectangle>()))
+                                   .ToList();
             bool result = ImagesFiles.Any();
             if (result)
                 ImageIndex = 0;
@@ -141,9 +137,9 @@ namespace DatasetCreationTool
             var lines = await File.ReadAllLinesAsync(path);
             ImagesFiles = lines.Select(ParseLine)
                                .Where(tuple => !String.IsNullOrEmpty(tuple.Item1))  // exclude empty lines
-                           .Where(tuple => IsSupportedFormat(new FileInfo(tuple.Item1).Extension))
+                               .Where(tuple => IsSupportedFormat(new FileInfo(tuple.Item1).Extension))
                                .Select(tuple => (ToAbsolutePath(currentFileDirectory, tuple.Item1), tuple.Item2))
-                           .ToList();
+                               .ToList();
             bool result = ImagesFiles.Any();
             if (result)
                 ImageIndex = 0;
