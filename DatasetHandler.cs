@@ -108,6 +108,9 @@ namespace DatasetCreationTool
 
             static (string, List<Rectangle>) ParseLine(string text)
             {
+                if (String.IsNullOrEmpty(text))
+                    return ("", new List<Rectangle>());
+
                 var index = Regex.Match(text, @"\.[a-z]{3} [0-9]").Index;
                 var path = text.Substring(0, index + 4);
 
@@ -134,14 +137,25 @@ namespace DatasetCreationTool
                 return (path, rectangles);
             }
 
+            var currentFileDirectory = Path.GetDirectoryName(path);
             var lines = await File.ReadAllLinesAsync(path);
             ImagesFiles = lines.Select(ParseLine)
+                               .Where(tuple => !String.IsNullOrEmpty(tuple.Item1))  // exclude empty lines
                            .Where(tuple => IsSupportedFormat(new FileInfo(tuple.Item1).Extension))
+                               .Select(tuple => (ToAbsolutePath(currentFileDirectory, tuple.Item1), tuple.Item2))
                            .ToList();
             bool result = ImagesFiles.Any();
             if (result)
                 ImageIndex = 0;
             return result;
+        }
+
+        private static string ToAbsolutePath(string root, string path)
+        {
+            if (Path.IsPathRooted(path))
+                return path;
+
+            return Path.Join(root, path);
         }
 
         public static bool IsSupportedFormat(string extension)
