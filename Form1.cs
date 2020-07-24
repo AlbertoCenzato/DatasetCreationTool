@@ -57,6 +57,7 @@ namespace DatasetCreationTool
                     datasetHandler.ImageIndex += 1;
                     e.Handled = true;
                     break;
+                    /*
                 case (char)Keys.E:
                     if (datasetHandler.SelectedRegion != Rectangle.Empty)
                     {
@@ -73,6 +74,13 @@ namespace DatasetCreationTool
                         }
                         pictureBoxWorkingImage.Refresh();
                     }
+                    e.Handled = true;
+                    break;
+                    */
+                case (char)Keys.Q:
+                    datasetHandler.ImageRectangles.RemoveAt(datasetHandler.ImageRectangles.Count - 1);
+                    datasetHandler.SelectedRegion = Rectangle.Empty;
+                    pictureBoxWorkingImage.Refresh();
                     e.Handled = true;
                     break;
             }
@@ -100,7 +108,7 @@ namespace DatasetCreationTool
                 var rectBottomRightCorner = FormCoordinatesToImageCoordinates(e.Location);
                 var size = new Size(rectBottomRightCorner.X - firstPoint.X, rectBottomRightCorner.Y - firstPoint.Y);
                 datasetHandler.SelectedRegion = new Rectangle(firstPoint, size);
-
+                datasetHandler.ImageRectangles.Add(datasetHandler.SelectedRegion);
                 firstPoint = Point.Empty;
             }
 
